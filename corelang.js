@@ -177,6 +177,10 @@
 .cl-stack.align-center { align-items: center; text-align: center; }
 .cl-stack.align-right { align-items: flex-end; text-align: right; }
 .cl-stack.align-left { align-items: flex-start; }
+.cl-stack.max-sm { max-width: 400px; margin-left: auto; margin-right: auto; }
+.cl-stack.max-md { max-width: 560px; margin-left: auto; margin-right: auto; }
+.cl-stack.max-lg { max-width: 720px; margin-left: auto; margin-right: auto; }
+.cl-stack.max-xl { max-width: 960px; margin-left: auto; margin-right: auto; }
 
 /* ─── CARD ────────────────────────────────────────────────────── */
 .cl-card { padding: 1.75rem; border-radius: var(--cl-radius); transition: transform var(--cl-transition), box-shadow var(--cl-transition), border-color var(--cl-transition); }
@@ -438,7 +442,7 @@
   padding: 0.625rem 0.875rem;
   border: 1px solid var(--cl-border);
   border-radius: var(--cl-radius);
-  background: var(--cl-bg);
+  background: var(--cl-surface);
   color: var(--cl-text);
   outline: none;
   transition: border-color var(--cl-transition), box-shadow var(--cl-transition);
@@ -455,17 +459,17 @@
 .cl-input-field.lg { font-size: 0.95rem; padding: 0.8rem 1rem; }
 /* Variants */
 .cl-input-filled .cl-input-field { background: var(--cl-surface); border-color: transparent; }
-.cl-input-filled .cl-input-field:focus { background: var(--cl-bg); border-color: var(--cl-accent); }
+.cl-input-filled .cl-input-field:focus { border-color: var(--cl-accent); }
 /* Hint / error text */
 .cl-input-hint { font-size: 0.75rem; color: var(--cl-muted); line-height: 1.4; }
 .cl-input-error-text { font-size: 0.75rem; color: #ef4444; line-height: 1.4; }
 /* Textarea */
 .cl-input-field.textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
 /* Dark section overrides */
-.cl-section.bg-dark .cl-input-field { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: var(--cl-bg); }
+.cl-section.bg-dark .cl-input-field { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: #fff; }
 .cl-section.bg-dark .cl-input-field::placeholder { color: rgba(255,255,255,0.35); }
 .cl-section.bg-dark .cl-input-field:focus { border-color: var(--cl-accent); background: rgba(255,255,255,0.08); }
-.cl-section.bg-dark .cl-input-label { color: var(--cl-bg); }
+.cl-section.bg-dark .cl-input-label { color: #fff; }
 .cl-section.bg-dark .cl-input-hint { color: rgba(255,255,255,0.45); }
 /* CTA dark overrides */
 .cl-cta.bg-dark .cl-input-field { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: #fff; }
@@ -696,8 +700,9 @@
       return `<div class="cl-grid cols-${cols} gap-${gap}">${renderChildren(children)}</div>`;
     },
 
-    STACK({ gap = 'md', align = 'left', children = [] }) {
-      return `<div class="cl-stack gap-${gap} align-${align}">${renderChildren(children)}</div>`;
+    STACK({ gap = 'md', align = 'left', max_width, children = [] }) {
+      const maxCls = max_width ? ` max-${max_width}` : '';
+      return `<div class="cl-stack gap-${gap} align-${align}${maxCls}">${renderChildren(children)}</div>`;
     },
 
     CARD({ icon: ic, title, body, variant = 'outlined', href, image }) {
