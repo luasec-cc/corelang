@@ -9,9 +9,27 @@
   // ─── Lucide icons (inline SVG via CDN) ───────────────────────────────────────
   const ICON_CDN = 'https://unpkg.com/lucide-static@latest/icons/';
 
+  // Fallback SVG icons for common social/brand names not in Lucide
+  const SOCIAL_ICONS = {
+    twitter: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>',
+    x: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>',
+    github: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>',
+    linkedin: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>',
+    instagram: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>',
+    youtube: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>',
+    facebook: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>',
+    mail: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
+    dribbble: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/></svg>',
+    figma: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg>'
+  };
+
   function icon(name, size = 18) {
     if (!name) return '';
-    return `<img src="${ICON_CDN}${name}.svg" width="${size}" height="${size}" alt="" class="cl-icon" style="display:inline-block;vertical-align:middle;opacity:0.8;" loading="lazy" onerror="this.style.display='none'">`;
+    const social = SOCIAL_ICONS[name];
+    if (social) {
+      return `<span class="cl-icon" style="display:inline-flex;align-items:center;justify-content:center;width:${size}px;height:${size}px;">${social.replace(/<svg /, `<svg width="${size}" height="${size}" `)}</span>`;
+    }
+    return `<img src="${ICON_CDN}${name}.svg" width="${size}" height="${size}" alt="" class="cl-icon" style="display:inline-block;vertical-align:middle;opacity:0.8;" loading="lazy" onerror="this.outerHTML='<span style=\'display:inline-block;width:${size}px;height:${size}px;background:var(--cl-muted);border-radius:50%;\'></span>'">`;
   }
 
   // ─── Theme injection ──────────────────────────────────────────────────────────
@@ -51,6 +69,13 @@
 .cl-root { font-family: var(--cl-font-body); background: var(--cl-bg); color: var(--cl-text); line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 .cl-root a { color: inherit; text-decoration: none; }
 .cl-root img { max-width: 100%; display: block; }
+.cl-root .cl-icon img { max-width: none; display: inline; }
+.cl-root .cl-footer-socials img { max-width: none; display: inline; }
+.cl-root .cl-card-icon img { max-width: none; display: inline; }
+.cl-root .cl-feature-icon img { max-width: none; display: inline; }
+.cl-root .cl-badge img { max-width: none; display: inline; }
+.cl-root .cl-btn img { max-width: none; display: inline; }
+.cl-root .cl-eyebrow img { max-width: none; display: inline; }
 .cl-root ul, .cl-root ol { list-style: none; }
 .cl-container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
 
@@ -311,8 +336,19 @@
 .cl-cta { text-align: center; padding: 5.5rem 2rem; border-radius: var(--cl-radius); }
 .cl-cta.bg-default { background: var(--cl-surface); }
 .cl-cta.bg-surface { background: var(--cl-surface); }
-.cl-cta.bg-dark { background: var(--cl-text); color: var(--cl-bg); --cl-muted: rgba(255,255,255,0.55); }
-.cl-cta.bg-accent { background: var(--cl-accent); color: #fff; --cl-muted: rgba(255,255,255,0.65); }
+.cl-cta.bg-dark { background: var(--cl-text); color: var(--cl-bg); --cl-muted: rgba(255,255,255,0.55); --cl-surface: rgba(255,255,255,0.08); --cl-border: rgba(255,255,255,0.15); }
+.cl-cta.bg-accent { background: var(--cl-accent); color: #fff; --cl-muted: rgba(255,255,255,0.65); --cl-surface: rgba(255,255,255,0.12); --cl-border: rgba(255,255,255,0.2); }
+/* CTA dark/accent button overrides */
+.cl-cta.bg-dark .cl-btn.primary { background: #fff; color: var(--cl-text); border-color: #fff; }
+.cl-cta.bg-dark .cl-btn.primary:hover { opacity: 0.88; }
+.cl-cta.bg-dark .cl-btn.outline { color: #fff; border-color: rgba(255,255,255,0.25); }
+.cl-cta.bg-dark .cl-btn.outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+.cl-cta.bg-dark .cl-btn.secondary { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.1); }
+.cl-cta.bg-dark .cl-btn.ghost { color: #fff; }
+.cl-cta.bg-accent .cl-btn.primary { background: #fff; color: var(--cl-accent); border-color: #fff; }
+.cl-cta.bg-accent .cl-btn.primary:hover { opacity: 0.88; }
+.cl-cta.bg-accent .cl-btn.outline { color: #fff; border-color: rgba(255,255,255,0.3); }
+.cl-cta.bg-accent .cl-btn.outline:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.5); }
 .cl-cta h2 { font-family: var(--cl-font-heading); font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 600; letter-spacing: -0.025em; margin-bottom: 0.75rem; line-height: 1.15; }
 .cl-cta p { color: var(--cl-muted); font-size: 0.95rem; margin-bottom: 2rem; }
 .cl-cta-actions { display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
@@ -324,8 +360,10 @@
 .cl-footer-brand .cl-footer-logo img { height: 24px; width: auto; }
 .cl-footer-brand p { font-size: 0.82rem; color: var(--cl-muted); line-height: 1.5; max-width: 280px; }
 .cl-footer-socials { display: flex; gap: 0.75rem; margin-top: 1rem; }
-.cl-footer-socials a { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--cl-radius); background: var(--cl-surface); color: var(--cl-muted); transition: background var(--cl-transition), color var(--cl-transition); }
+.cl-footer-socials a { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: var(--cl-radius); background: var(--cl-surface); color: var(--cl-muted); transition: background var(--cl-transition), color var(--cl-transition); }
 .cl-footer-socials a:hover { background: var(--cl-accent); color: #fff; }
+.cl-footer-socials a .cl-icon { opacity: 1; }
+.cl-footer-socials a:hover .cl-icon { filter: brightness(10); }
 .cl-footer-cols { display: flex; gap: 4rem; }
 .cl-footer-col h4 { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cl-muted); margin-bottom: 1rem; }
 .cl-footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
@@ -608,9 +646,8 @@
       const cls = `cl-cta bg-${bg}`;
       const style = bg && bg.startsWith('#') ? `style="background:${bg};"` : '';
       const subHtml = subheading ? `<p>${subheading}</p>` : '';
-      const isDark = bg === 'dark' || bg === 'accent';
-      const primaryHtml = cta_primary ? `<a href="${cta_primary.href}" class="cl-btn ${isDark ? 'primary' : 'primary'} lg">${cta_primary.label}</a>` : '';
-      const secondaryHtml = cta_secondary ? `<a href="${cta_secondary.href}" class="cl-btn ${isDark ? 'outline' : 'outline'} lg">${cta_secondary.label}</a>` : '';
+      const primaryHtml = cta_primary ? `<a href="${cta_primary.href}" class="cl-btn primary lg">${cta_primary.label}</a>` : '';
+      const secondaryHtml = cta_secondary ? `<a href="${cta_secondary.href}" class="cl-btn outline lg">${cta_secondary.label}</a>` : '';
       return `<div class="${cls}" ${style}><h2>${heading}</h2>${subHtml}<div class="cl-cta-actions">${primaryHtml}${secondaryHtml}</div></div>`;
     },
 
