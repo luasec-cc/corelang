@@ -1,5 +1,5 @@
 /*!
- * corelang.js v0.3.0
+ * corelang.js v0.4.0
  * The official CoreLang renderer — by ReefDesign
  * https://dcpcdn.de/corelang.js
  */
@@ -78,6 +78,8 @@
 .cl-root .cl-badge img { max-width: none; display: inline; }
 .cl-root .cl-btn img { max-width: none; display: inline; }
 .cl-root .cl-eyebrow img { max-width: none; display: inline; }
+.cl-root .cl-input img { max-width: none; display: inline; }
+.cl-root .cl-checkbox img { max-width: none; display: inline; }
 .cl-root ul, .cl-root ol { list-style: none; }
 .cl-container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
 
@@ -420,6 +422,102 @@
 .cl-footer-col ul a:hover { color: var(--cl-accent); }
 .cl-footer-bottom { max-width: 1120px; margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--cl-border); font-size: 0.78rem; color: var(--cl-muted); }
 
+/* ─── FORM ────────────────────────────────────────────────── */
+.cl-form { display: flex; flex-direction: column; gap: 1rem; width: 100%; }
+.cl-form.cl-form-gap-sm { gap: 0.625rem; }
+.cl-form.cl-form-gap-md { gap: 1rem; }
+.cl-form.cl-form-gap-lg { gap: 1.5rem; }
+
+/* ─── INPUT ────────────────────────────────────────────────── */
+.cl-input { display: flex; flex-direction: column; gap: 0.375rem; width: 100%; }
+.cl-input-label { font-size: 0.825rem; font-weight: 500; color: var(--cl-text); letter-spacing: -0.01em; }
+.cl-input-label .cl-input-required { color: var(--cl-accent); margin-left: 2px; }
+.cl-input-field {
+  font-family: var(--cl-font-body);
+  font-size: 0.875rem;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--cl-border);
+  border-radius: var(--cl-radius);
+  background: var(--cl-bg);
+  color: var(--cl-text);
+  outline: none;
+  transition: border-color var(--cl-transition), box-shadow var(--cl-transition);
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.cl-input-field::placeholder { color: var(--cl-muted); opacity: 0.7; }
+.cl-input-field:hover { border-color: color-mix(in srgb, var(--cl-border) 70%, var(--cl-muted)); }
+.cl-input-field:focus { border-color: var(--cl-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--cl-accent) 12%, transparent); }
+.cl-input-field.error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+/* Sizes */
+.cl-input-field.sm { font-size: 0.8rem; padding: 0.45rem 0.7rem; }
+.cl-input-field.lg { font-size: 0.95rem; padding: 0.8rem 1rem; }
+/* Variants */
+.cl-input-filled .cl-input-field { background: var(--cl-surface); border-color: transparent; }
+.cl-input-filled .cl-input-field:focus { background: var(--cl-bg); border-color: var(--cl-accent); }
+/* Hint / error text */
+.cl-input-hint { font-size: 0.75rem; color: var(--cl-muted); line-height: 1.4; }
+.cl-input-error-text { font-size: 0.75rem; color: #ef4444; line-height: 1.4; }
+/* Textarea */
+.cl-input-field.textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+/* Dark section overrides */
+.cl-section.bg-dark .cl-input-field { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: var(--cl-bg); }
+.cl-section.bg-dark .cl-input-field::placeholder { color: rgba(255,255,255,0.35); }
+.cl-section.bg-dark .cl-input-field:focus { border-color: var(--cl-accent); background: rgba(255,255,255,0.08); }
+.cl-section.bg-dark .cl-input-label { color: var(--cl-bg); }
+.cl-section.bg-dark .cl-input-hint { color: rgba(255,255,255,0.45); }
+/* CTA dark overrides */
+.cl-cta.bg-dark .cl-input-field { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: #fff; }
+.cl-cta.bg-dark .cl-input-field::placeholder { color: rgba(255,255,255,0.35); }
+.cl-cta.bg-dark .cl-input-field:focus { border-color: var(--cl-accent); background: rgba(255,255,255,0.08); }
+.cl-cta.bg-dark .cl-input-label { color: #fff; }
+/* Accent bg overrides */
+.cl-cta.bg-accent .cl-input-field { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); color: #fff; }
+.cl-cta.bg-accent .cl-input-field::placeholder { color: rgba(255,255,255,0.45); }
+.cl-cta.bg-accent .cl-input-field:focus { border-color: #fff; background: rgba(255,255,255,0.14); }
+.cl-cta.bg-accent .cl-input-label { color: #fff; }
+
+/* ─── CHECKBOX ────────────────────────────────────────────────── */
+.cl-checkbox { display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer; }
+.cl-checkbox input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px; min-width: 18px;
+  border: 1.5px solid var(--cl-border);
+  border-radius: 4px;
+  background: var(--cl-bg);
+  cursor: pointer;
+  transition: background var(--cl-transition), border-color var(--cl-transition), box-shadow var(--cl-transition);
+  margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.cl-checkbox input[type="checkbox"]:hover { border-color: var(--cl-muted); }
+.cl-checkbox input[type="checkbox"]:focus { border-color: var(--cl-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--cl-accent) 12%, transparent); outline: none; }
+.cl-checkbox input[type="checkbox"]:checked {
+  background: var(--cl-accent);
+  border-color: var(--cl-accent);
+}
+.cl-checkbox input[type="checkbox"]:checked::after {
+  content: '';
+  display: block;
+  width: 10px; height: 6px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translateY(-1px);
+  margin-top: 1px;
+}
+.cl-checkbox-label { font-size: 0.85rem; color: var(--cl-text); line-height: 1.5; }
+.cl-checkbox-label a { color: var(--cl-accent); text-decoration: underline; text-underline-offset: 2px; }
+.cl-checkbox-label a:hover { opacity: 0.8; }
+/* Dark section overrides */
+.cl-section.bg-dark .cl-checkbox input[type="checkbox"] { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
+.cl-section.bg-dark .cl-checkbox-label { color: var(--cl-bg); }
+.cl-cta.bg-dark .cl-checkbox input[type="checkbox"] { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
+.cl-cta.bg-dark .cl-checkbox-label { color: #fff; }
+.cl-cta.bg-accent .cl-checkbox input[type="checkbox"] { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+.cl-cta.bg-accent .cl-checkbox-label { color: #fff; }
+
 /* ─── DIVIDER ────────────────────────────────────────────────── */
 .cl-divider-line { border: none; border-top: 1px solid var(--cl-border); margin: 0; }
 .cl-divider-space.sm { height: 1.5rem; }
@@ -458,6 +556,7 @@
 
   .cl-cta { padding: 3.5rem 1.5rem; }
   .cl-cta-input { max-width: 100%; }
+  .cl-input-field.lg { font-size: 0.875rem; padding: 0.7rem 0.875rem; }
 }
 
 @media (max-width: 480px) {
@@ -624,13 +723,14 @@
       return `<${tag} class="${cls}" ${style}>${content}</${tag}>`;
     },
 
-    BUTTON({ label, href, icon: ic, icon_position = 'right', variant = 'primary', size = 'md' }) {
+    BUTTON({ label, href, icon: ic, icon_position = 'right', variant = 'primary', size = 'md', full_width }) {
       const iconHtml = ic ? icon(ic, 16) : '';
       const inner = icon_position === 'left'
         ? `${iconHtml}${label}`
         : `${label}${iconHtml}`;
-      if (href) return `<a href="${href}" class="cl-btn ${variant} ${size}">${inner}</a>`;
-      return `<button class="cl-btn ${variant} ${size}">${inner}</button>`;
+      const widthStyle = full_width ? 'style="width:100%;justify-content:center"' : '';
+      if (href) return `<a href="${href}" class="cl-btn ${variant} ${size}" ${widthStyle}>${inner}</a>`;
+      return `<button class="cl-btn ${variant} ${size}" ${widthStyle} type="${href ? 'button' : 'submit'}">${inner}</button>`;
     },
 
     BADGE({ label, icon: ic, variant = 'default' }) {
@@ -785,6 +885,45 @@
 </footer>`;
     },
 
+    INPUT({ label, name, type = 'text', placeholder, required, hint, error, size, variant, autocomplete, disabled, rows }) {
+      const isTextarea = type === 'textarea';
+      const sizeCls = size ? ` ${size}` : '';
+      const variantCls = variant === 'filled' ? ' cl-input-filled' : '';
+      const labelHtml = label ? `<label class="cl-input-label" for="cl-${name}">${label}${required ? '<span class="cl-input-required">*</span>' : ''}</label>` : '';
+      const hintHtml = hint ? `<span class="cl-input-hint">${hint}</span>` : '';
+      const errorHtml = error ? `<span class="cl-input-error-text">${error}</span>` : '';
+      const errorCls = error ? ' error' : '';
+      const requiredAttr = required ? 'required' : '';
+      const disabledAttr = disabled ? 'disabled' : '';
+      const autocompleteAttr = autocomplete ? `autocomplete="${autocomplete}"` : '';
+      const idAttr = name ? `id="cl-${name}"` : '';
+      const nameAttr = name ? `name="${name}"` : '';
+
+      let fieldHtml;
+      if (isTextarea) {
+        const rowsAttr = rows ? `rows="${rows}"` : 'rows="4"';
+        fieldHtml = `<textarea class="cl-input-field textarea${sizeCls}${errorCls}" ${idAttr} ${nameAttr} placeholder="${placeholder || ''}" ${requiredAttr} ${disabledAttr} ${rowsAttr}></textarea>`;
+      } else {
+        fieldHtml = `<input class="cl-input-field${sizeCls}${errorCls}" type="${type}" ${idAttr} ${nameAttr} placeholder="${placeholder || ''}" ${requiredAttr} ${disabledAttr} ${autocompleteAttr}>`;
+      }
+
+      return `<div class="cl-input${variantCls}">${labelHtml}${fieldHtml}${errorHtml || hintHtml}</div>`;
+    },
+
+    FORM({ action, method = 'POST', gap = 'md', children = [] }) {
+      const childrenHtml = renderChildren(children);
+      const actionAttr = action ? `action="${action}"` : '';
+      return `<form class="cl-form cl-form-gap-${gap}" ${actionAttr} method="${method}">${childrenHtml}</form>`;
+    },
+
+    CHECKBOX({ label, name, required, checked, disabled }) {
+      const requiredAttr = required ? 'required' : '';
+      const checkedAttr = checked ? 'checked' : '';
+      const disabledAttr = disabled ? 'disabled' : '';
+      const nameAttr = name ? `name="${name}"` : '';
+      return `<label class="cl-checkbox"><input type="checkbox" ${nameAttr} ${requiredAttr} ${checkedAttr} ${disabledAttr}><span class="cl-checkbox-label">${label}</span></label>`;
+    },
+
     DIVIDER({ style = 'line', size = 'md' }) {
       if (style === 'space') return `<div class="cl-divider-space ${size}"></div>`;
       return `<hr class="cl-divider-line">`;
@@ -846,7 +985,7 @@
 
   // ─── Exports ──────────────────────────────────────────────────────────────────
 
-  const CoreLang = { render, version: '0.3.0' };
+  const CoreLang = { render, version: '0.4.0' };
 
   // Browser global
   global.CoreLang = CoreLang;
